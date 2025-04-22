@@ -29,7 +29,7 @@ nav img {
   height: 120px;
   border-radius: 150px;
   margin-right: 300px;
-  animation: rotate 10s linear infinite;
+  animation: rotate 7s linear infinite;
 }
 
 @keyframes rotate {
