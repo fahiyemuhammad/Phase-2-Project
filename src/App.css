@@ -8,18 +8,19 @@ body {
   font-size: xx-large;
 }
 .shopsphere{
-  margin-right: 340px;
-  font-size: xxx-large;
+  margin:0 auto;
+  font-size: clamp(1.5rem, 5vw, 3rem);
   padding: 30px;
 }
 .navbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #2b2b69;
+  background: linear-gradient(to right,  #5053f3,#0a0aaf);
   padding: 1rem 2rem;
   color: white;
   height:80px;
+  border: 1px solid black;
 }
 
 nav img{
@@ -51,13 +52,14 @@ nav img{
   max-width: 400px;
   margin: 3rem auto;
   padding: 2rem;
-  background-color: white;
+  background: linear-gradient(to right, #f4f4f5, #efe7f7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border:1px solid black;
 }
 .form-h2{
   text-align:center;
@@ -70,6 +72,10 @@ form input {
   margin-bottom: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+form input:hover{
+  transform: translate(-5px) scale(1.06);
 }
 
 form button {
@@ -83,7 +89,8 @@ form button {
 }
 
 form button:hover {
-  background-color: #343454;
+  background: linear-gradient(to right, #5f319b, #399b3e);
+
 }
 
 /*products styling*/
@@ -228,9 +235,9 @@ form button:hover {
   cursor: pointer;
 }
 
-.buy-button:disabled {
-  background-color: gray;
-  cursor: not-allowed;
+.buy-button:hover {
+  background-color: rgb(209, 125, 14);
+  cursor: pointer;
 }
 /* rating styling */
 .rating-section {
@@ -240,4 +247,44 @@ form button:hover {
 .stars span {
   transition: color 0.2s;
   margin-right: 4px;
+}
+
+
+.user-icon {
+  font-size: 1.6rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.user-info-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: left;
+  background-color: #fdfdfd;
+}
+
+.user-info-container h2 {
+  margin-bottom: 1rem;
+}
+
+.user-info-container p {
+  margin: 0.5rem 0;
+}
+
+.user-info-container button {
+  margin-top: 1rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-container{
+  display: flex;
+  flex-direction: column;
 }

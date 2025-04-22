@@ -1,18 +1,18 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import "./App.css"
-import logo from "./assets/Add a heading.zip - 1.PNG"
-
+import UserInfo from "./pages/UserInfo";
+import "./App.css";
+import logo from "./assets/Add a heading.zip - 1.PNG";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [user,setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-  function handleLogout(){
-    setUser(null);
-  }
+  
 
   return (
     <div>
@@ -24,7 +24,8 @@ function App() {
           {user ? (
             <>
               <span>Hello, {user.username}</span>
-              <button onClick={handleLogout}>Logout</button>
+              <Link to="/user-info" title="Profile" className="user-icon">👤</Link>
+              
             </>
           ) : (
             <>
@@ -35,10 +36,13 @@ function App() {
         </div>
       </nav>
 
+      <ToastContainer autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover />
+
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
+        <Route path="/user-info" element={<UserInfo user={user} setUser={setUser} />} />
       </Routes>
     </div>
   );

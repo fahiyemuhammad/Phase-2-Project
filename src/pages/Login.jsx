@@ -1,48 +1,64 @@
-import { useState } from "react"
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 
+function Login({ setUser }) {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();  // Hook for navigation
 
-
-
-function Login() {
-    const [form,setForm] = useState({email:"",password: "" });
-
-    function  handleChange(e) {
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
-     }
-
-    function  handleSubmit(e){
-        e.preventDefault();
-        console.log("Login data:", form);
-        //put validation logic here
-     } 
-
-
-    return (
-        <div className="form-container">
-        <h2 className="form-h2">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">Login</button>
-        </form>
-      </div>
-      );
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
 
-  export default Login
+    fetch("http://localhost:3001/users")
+      .then((res) => res.json())
+      .then((users) => {
+        const matchedUser = users.find(
+          (user) =>
+            user.email === form.email && user.password === form.password
+        );
+        if (matchedUser) {
+          setUser(matchedUser);  // Save user to state
+          toast.success("Logged in successfully!", {
+            position: "top-right",
+          });
+          navigate("/");  // Redirect to Home page
+        } else {
+          toast.error("Invalid email or password", {
+            position: "top-right",
+          });
+        }
+      });
+  }
+
+  return (
+    <div className="form-container">
+      <h2 className="form-h2">Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+export default Login;

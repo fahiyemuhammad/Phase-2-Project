@@ -1,26 +1,67 @@
-import { useState } from "react"
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-function Signup() {
-
-   const [form, setForm ] = useState({
+function Signup({ setUser }) {
+  const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
-   });
+  });
 
-   function handleChange(e){
-    const {name, value } =e.target;
-    setForm({...form, [name]: value });
-   }
+  const navigate = useNavigate();
 
-   function handleSubmit(e){
-     e.preventDefault();
-     console.log("signup data:", form)
-     // put validation logic here
-   }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  }
 
+  function handleSubmit(e) {
+    e.preventDefault();
 
-   return (
+    fetch("http://localhost:3001/users")
+      .then((res) => res.json())
+      .then((users) => {
+        const usernameExists = users.some(
+          (user) => user.username === form.username
+        );
+        const emailExists = users.some((user) => user.email === form.email);
+
+        if (usernameExists || emailExists) {
+          if (usernameExists) {
+            toast.error("Username already taken!", {
+              position: "top-right",
+            });
+          }
+          if (emailExists) {
+            toast.error("Email already registered!", {
+              position: "top-right",
+            });
+          }
+          return;
+        }
+
+        // If both are unique, proceed with signup
+        fetch("http://localhost:3001/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        })
+          .then((res) => res.json())
+          .then((newUser) => {
+            setUser(newUser);
+            toast.success("Account created successfully!", {
+              position: "top-right",
+              autoClose: 3000,
+            });
+            navigate("/login");
+          });
+      });
+  }
+
+  return (
     <div className="form-container">
       <h2 className="form-h2">Sign Up</h2>
       <form onSubmit={handleSubmit}>
@@ -52,9 +93,6 @@ function Signup() {
       </form>
     </div>
   );
+}
 
-    
-  }
- 
-  
-  export default Signup
+export default Signup;

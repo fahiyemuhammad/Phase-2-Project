@@ -75,9 +75,7 @@ function Home({ user }) {
                 </div>
               </div>
 
-              <button className="buy-button" disabled={!user}>
-                {user ? "Buy Now" : "Login to Buy"}
-              </button>
+              <button className="buy-button">Add To Cart</button>
             </div>
           </div>
         </div>
@@ -85,7 +83,7 @@ function Home({ user }) {
 
       {/* Product List */}
       {loading ? (
-        <p className="lading-products">Loading products...</p>
+        <p className="loading-products">Loading products...</p>
       ) : (
         <div className="product-list">
           {products.length === 0 ? (
@@ -104,10 +102,10 @@ function Home({ user }) {
                 />
                 <div className="product-info">
                   <h3>{product.title}</h3>
-                  <p>{product.price} USD</p>
+                  <p>$ {product.price}</p>
                 </div>
                 <div className="product-button">
-                  <button disabled={!user}>{user ? "Buy Now" : "Login to Buy"}</button>
+                  <button >Add To Cart</button>
                 </div>
               </div>
             ))
