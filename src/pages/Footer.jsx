@@ -10,11 +10,19 @@ const Footer = () => {
           <h2 className="logo">Shop Sphere</h2>
           <p>Shop Smart. Shop Stylish. Save money.</p>
           <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook-f"></i></a>
-            <a href="#"><i className="fab fa-linkedin-in"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-youtube"></i></a>
-          </div>
+  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-linkedin-in"></i>
+  </a>
+  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-twitter"></i>
+  </a>
+  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+    <i className="fab fa-youtube"></i>
+  </a>
+</div>
         </div>
 
         <div className="footer-contacts">

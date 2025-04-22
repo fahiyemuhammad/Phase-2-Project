@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserInfo from "./pages/UserInfo";
-import Footer from "./pages/footer";
+import Footer from "./pages/Footer";
 import Checkout from "./pages/Checkout";
 import "./App.css";
 import LOGO from "./assets/LOGO.jpeg";
@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [user, setUser] = useState(null);
 
-  // Initialize cart from localStorage if available
   const [cart, setCart] = useState(() => {
     try {
       const savedCart = localStorage.getItem("cart");
@@ -25,7 +24,6 @@ function App() {
     }
   });
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -34,14 +32,14 @@ function App() {
     }
   }, [cart]);
 
-  // Function to add item to cart
+  // ✅ Fixed addToCart function with proper image fallback
   const addToCart = (product) => {
     try {
       const validProduct = {
         id: product.id || Date.now(),
         title: product.title || "Product",
         price: parseFloat(product.price) || 0,
-        image: product.image || "/placeholder-image.png",
+        image: product.image || product.thumbnail || "/placeholder-image.png",
         quantity: 1,
       };
 
@@ -64,7 +62,6 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Navigation Bar */}
       <nav className="navbar">
         <img src={LOGO} alt="shopsphere-logo" />
         <h2 className="shopsphere">ShopSphere</h2>
@@ -73,13 +70,9 @@ function App() {
           {user ? (
             <>
               <span>Hello, {user.username}</span>
-              <Link to="/user-info" title="Profile" className="user-icon">
-                👤
-              </Link>
+              <Link to="/user-info" title="Profile" className="user-icon">👤</Link>
               <Link to="/checkout" title="Checkout" className="cart-icon">
-                🛒 {cart.length > 0 && (
-                  <span className="cart-count">{cart.length}</span>
-                )}
+                🛒 {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
               </Link>
             </>
           ) : (
@@ -87,9 +80,7 @@ function App() {
               <Link to="/login">Login</Link>
               <Link to="/signup">SignUp</Link>
               <Link to="/checkout" title="Checkout" className="cart-icon">
-                🛒 {cart.length > 0 && (
-                  <span className="cart-count">{cart.length}</span>
-                )}
+                🛒 {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
               </Link>
             </>
           )}
@@ -98,7 +89,6 @@ function App() {
 
       <ToastContainer autoClose={3000} hideProgressBar={false} closeOnClick pauseOnHover />
 
-      {/* Main Content Area */}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home user={user} addToCart={addToCart} />} />
@@ -109,7 +99,6 @@ function App() {
         </Routes>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
