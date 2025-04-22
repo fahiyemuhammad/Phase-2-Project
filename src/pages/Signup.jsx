@@ -41,7 +41,7 @@ function Signup({ setUser }) {
           return;
         }
 
-        // If both are unique, proceed with signup
+        //  After  both are unique, proceed with signup
         fetch("http://localhost:3001/users", {
           method: "POST",
           headers: {

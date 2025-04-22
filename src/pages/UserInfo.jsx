@@ -26,7 +26,7 @@ function UserInfo({ user, setUser }) {
     if(confirmLogout){
     setUser(null);
     toast.info("Logged out successfully!");
-    navigate("/login");
+    navigate("/");
     }
   }
 
