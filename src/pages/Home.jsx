@@ -1,37 +1,79 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+// Import any other dependencies you're using in your Home component
 
-function Home({ user }) {
+function Home({ user, addToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [localRating, setLocalRating] = useState(null); // New state for rating
-  const detailsRef = useRef(null);
-
-  // Load products (initial or after search)
+  
+  // Fetch products from API or use dummy data
   useEffect(() => {
-    const url = searchTerm
-      ? `https://dummyjson.com/products/search?q=${searchTerm}`//the API I used when searching
-      : "https://dummyjson.com/products"; //when not searching
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products); // NOTE: access .products here
+    const fetchProducts = async () => {
+      try {
+        // If you're already fetching products from an API, keep your existing code
+        // If not, here's a fallback with dummy data
+        const dummyProducts = [
+          {
+            id: 1,
+            title: "Laptop",
+            price: 999.99,
+            description: "High-performance laptop with latest specs",
+            image: "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
+            category: "electronics"
+          },
+          {
+            id: 2,
+            title: "Smartphone",
+            price: 699.99,
+            description: "Latest smartphone with advanced camera",
+            image: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+            category: "electronics"
+          },
+          {
+            id: 3,
+            title: "T-Shirt",
+            price: 29.99,
+            description: "Comfortable cotton t-shirt",
+            image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+            category: "clothing"
+          }
+        ];
+        
+        setProducts(dummyProducts);
         setLoading(false);
-      });
-  }, [searchTerm]);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        toast.error("Failed to load products");
+        setLoading(false);
+      }
+    };
 
-  // Scroll to details if one is selected
-  useEffect(() => {
-    if (selectedProduct) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchProducts();
+  }, []);
+
+  // Filter products based on search term
+  const filteredProducts = products.filter(product =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Handle adding product to cart
+  const handleAddToCart = (product) => {
+    try {
+      addToCart(product);
+      toast.success(`${product.title} added to cart!`);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Could not add item to cart. Please try again.");
     }
-  }, [selectedProduct]);
+  };
+
+  if (loading) {
+    return <div className="loading-products">Loading products...</div>;
+  }
 
   return (
-    <div className="home">
-     
+    <div>
       <input
         type="text"
         placeholder="Search products..."
@@ -40,78 +82,26 @@ function Home({ user }) {
         className="search-input"
       />
 
-      {/* Expanded Product Viewer */}
-      {selectedProduct && (
-        <div ref={detailsRef} className="details-card">
-          <button onClick={() => setSelectedProduct(null)} className="back-button">✕ Close</button>
-          <div className="details-inner">
-            <img src={selectedProduct.thumbnail} alt={selectedProduct.title} className="details-image" />
-            <div className="details-info">
-              <h2>{selectedProduct.title}</h2>
-              <p><strong>Brand:</strong> {selectedProduct.brand}</p>
-              <p><strong>Category:</strong> {selectedProduct.category}</p>
-              <p><strong>Price:</strong> ${selectedProduct.price}</p>
-              <p><strong>Rating:</strong> {selectedProduct.rating}⭐</p>
-              <p>{selectedProduct.description}</p>
-
-              {/* Rating Feature */}
-              <div className="rating-section">
-                <p><strong>Your Rating:</strong></p>
-                <div className="stars">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span
-                      key={star}
-                      onClick={() => setLocalRating(star)}
-                      style={{
-                        fontSize: '1.8rem',
-                        cursor: 'pointer',
-                        color: star <= localRating ? 'gold' : 'lightgray',
-                      }}
-                    >
-                      ★
-                    </span>
-                  ))}
-                  <p style={{ marginTop: '5px' }}>Rated {localRating ?? selectedProduct.rating} out of 5</p>
-                </div>
+      <div className="product-list">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className="product-card">
+            <img
+              src={product.image}
+              alt={product.title}
+              className="product-image"
+            />
+            <div className="product-info">
+              <h3>{product.title}</h3>
+              <p>${product.price.toFixed(2)}</p>
+              <div className="product-button">
+                <button onClick={() => handleAddToCart(product)}>
+                  Add to Cart
+                </button>
               </div>
-
-              <button className="buy-button">Add To Cart</button>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Product List */}
-      {loading ? (
-        <p className="loading-products">Loading products...</p>
-      ) : (
-        <div className="product-list">
-          {products.length === 0 ? (
-            <p>No products match your search.</p>
-          ) : (
-            products.map((product) => (
-              <div key={product.id} className="product-card">
-                <img
-                  src={product.thumbnail}
-                  alt={product.title}
-                  className="product-image"
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setLocalRating(product.rating); // Set local rating when product is selected
-                  }}
-                />
-                <div className="product-info">
-                  <h3>{product.title}</h3>
-                  <p>$ {product.price}</p>
-                </div>
-                <div className="product-button">
-                  <button >Add To Cart</button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
