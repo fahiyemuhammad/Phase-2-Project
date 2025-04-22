@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserInfo from "./pages/UserInfo";
 import "./App.css";
-import logo from "./assets/Add a heading.zip - 1.PNG";
+import LOGO from "./assets/LOGO.jpeg";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <nav className="navbar">
-        <img src={logo} alt="shopsphere-logo" />
+        <img src={LOGO} alt="shopsphere-logo" />
         <h2 className="shopsphere">ShopSphere</h2>
         <div className="nav-links">
           <Link to="/">Home</Link>
