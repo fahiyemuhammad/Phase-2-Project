@@ -24,12 +24,12 @@ function Login({ setUser }) {
         if (matchedUser) {
           setUser(matchedUser);  // Save user to state
           toast.success("Logged in successfully!", {
-            position: "top-right",
+            position: "top-center",
           });
           navigate("/");  // Redirect to Home page
         } else {
           toast.error("Invalid email or password", {
-            position: "top-right",
+            position: "top-center",
           });
         }
       });

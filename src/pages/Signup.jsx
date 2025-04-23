@@ -30,12 +30,12 @@ function Signup({ setUser }) {
         if (usernameExists || emailExists) {
           if (usernameExists) {
             toast.error("Username already taken!", {
-              position: "top-right",
+              position: "top-center",
             });
           }
           if (emailExists) {
             toast.error("Email already registered!", {
-              position: "top-right",
+              position: "top-center",
             });
           }
           return;
