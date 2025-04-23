@@ -9,6 +9,7 @@ import Checkout from "./pages/Checkout";
 import "./App.css";
 import LOGO from "./assets/LOGO.jpeg";
 import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
         image: product.image || product.thumbnail || "/placeholder-image.png",
         quantity: 1,
       };
+      toast.success("Item added to cart successfully!", {
+        position: "top-right",
+      });
 
       const existingItem = cart.find((item) => item.id === validProduct.id);
 

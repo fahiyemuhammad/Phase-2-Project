@@ -250,6 +250,9 @@ form button:hover {
   background-color: rgb(209, 125, 14);
   cursor: pointer;
 }
+.buy-button:active{
+  background-color: #000000;
+}
 /* rating styling */
 .rating-section {
   margin-top: 1rem;

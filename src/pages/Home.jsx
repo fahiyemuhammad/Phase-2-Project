@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import PromoBanner from "./PromoBanner";
 
+
 function Home({ user, addToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +80,7 @@ function Home({ user, addToCart }) {
 
               <button
                 className="buy-button"
-                onClick={() => addToCart(selectedProduct)} // Ensure this is connected correctly
+                onClick={() => {addToCart(selectedProduct)}} // Ensure this is connected correctly
               >
                 Add To Cart
               </button>
