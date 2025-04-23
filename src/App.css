@@ -595,9 +595,6 @@ form button:hover {
   font-size: 0.8rem;
 }
 
-
-
-
 .social-icons a {
   color: inherit;
   margin: 0 8px;
@@ -607,5 +604,5 @@ form button:hover {
 }
 
 .social-icons a:hover {
-  color: #007bff;
+  color: #e9530d;
 }
