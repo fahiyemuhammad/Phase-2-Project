@@ -73,7 +73,7 @@ function Home({ user, addToCart }) {
                       ★
                     </span>
                   ))}
-                  <p style={{ marginTop: '5px' }}>Rated {localRating ?? selectedProduct.rating} out of 5</p>
+                  <p  style={{ marginTop: '5px' , color: "black"}}>Rated {localRating ?? selectedProduct.rating} out of 5</p>
                 </div>
               </div>
 

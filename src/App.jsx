@@ -32,7 +32,7 @@ function App() {
     }
   }, [cart]);
 
-  // ✅ Fixed addToCart function with proper image fallback
+  
   const addToCart = (product) => {
     try {
       const validProduct = {
