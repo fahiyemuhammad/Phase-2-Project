@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import PromoBanner from "./PromoBanner";
 
 function Home({ user, addToCart }) {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,7 @@ function Home({ user, addToCart }) {
   // Scroll to details if one is selected
   useEffect(() => {
     if (selectedProduct) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 500, behavior: "smooth" });
     }
   }, [selectedProduct]);
 
@@ -38,6 +39,8 @@ function Home({ user, addToCart }) {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
       />
+
+      <PromoBanner />
 
       {/* Expanded Product Viewer */}
       {selectedProduct && (
