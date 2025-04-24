@@ -7,6 +7,7 @@ body {
 .loading-products{
   text-align: center;
   font-size: xx-large;
+  margin-bottom: 500px;
 }
 .shopsphere{
   margin:0 auto;
@@ -18,10 +19,13 @@ body {
   justify-content: flex-end;
   align-items: center;
   background: linear-gradient(to right,  #5053f3,#0a0aaf);
-  padding: 1rem 2rem;
+  padding-bottom: 30px;
+  padding-left:8px ;
   color: white;
-  height:87px;
+  height:100px;
   border: 1px solid black;
+  flex-wrap: wrap;
+  flex-grow: inherit;
 }
 
 nav img {
@@ -308,16 +312,15 @@ form button:hover {
   color: white;
   padding: 40px 0 20px;
   margin-top: 40px;
+ 
 }
 
 .footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+ display: flex;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  gap: 30px;
+  gap: 80px;
 }
 
 .footer-logo-section,
@@ -335,6 +338,20 @@ form button:hover {
   border-radius: 50px;
   rotate: 360deg;
   animation: rotate 7s linear infinite;
+}
+.footer-logo-container{
+ margin-left: 80px;
+ padding-left: 20px;
+ text-align: center;
+}
+.map-iframe{
+  width:650px ;
+  min-width: 200px;
+  display: block;
+  height:300px ;
+  border:0;
+  align-self: center;
+  margin-left: 595px;
 }
 
 .rating {
@@ -363,6 +380,7 @@ form button:hover {
   padding-top: 20px;
   border-top: 1px solid rgba(255,255,255,0.1);
 }
+
 
 /* Checkout Page Styles */
 .checkout-container {
@@ -823,3 +841,4 @@ form button:hover {
     font-size: 20px;
   }
 }
+

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Signup({ setUser }) {
   const [form, setForm] = useState({
@@ -90,6 +91,7 @@ function Signup({ setUser }) {
           required
         />
         <button type="submit">Sign Up</button>
+        <p>Already have an account? <Link to="/login">Log In</Link></p>
       </form>
     </div>
   );

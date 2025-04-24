@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";  // Import useNavigate
+import { Link } from "react-router-dom";
 
 function Login({ setUser }) {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -55,7 +56,9 @@ function Login({ setUser }) {
           onChange={handleChange}
           required
         />
+        
         <button type="submit">Login</button>
+        <p>Dont have an account? <Link to="/signup">SignUp</Link></p>
       </form>
     </div>
   );
