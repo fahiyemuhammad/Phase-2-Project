@@ -841,4 +841,26 @@ form button:hover {
     font-size: 20px;
   }
 }
+/* Sort By Price Container */
+.sort-by-price {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+/* Sort By Price Dropdown */
+.sort-by-price select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.sort-by-price select:focus {
+  border-color: #ff9900;
+}
 
