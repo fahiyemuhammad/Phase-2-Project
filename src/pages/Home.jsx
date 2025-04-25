@@ -10,17 +10,18 @@ function Home({ user, addToCart }) {
   const [localRating, setLocalRating] = useState(null);
   const detailsRef = useRef(null);
   const [sortOrder, setSortOrder] = useState("");
+  const productRefs = useRef([]); // For scroll animation
 
-  // Load products (initial or after search)
+  // Load products
   useEffect(() => {
     const url = searchTerm
-      ? `https://dummyjson.com/products/search?q=${searchTerm}` 
-      : "https://dummyjson.com/products"; 
+      ? `https://dummyjson.com/products/search?q=${searchTerm}`
+      : "https://dummyjson.com/products";
 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products); 
+        setProducts(data.products);
         setLoading(false);
       });
   }, [searchTerm]);
@@ -32,13 +33,34 @@ function Home({ user, addToCart }) {
     }
   }, [selectedProduct]);
 
-  // Sort products based on sortOrder
+  // Scroll animation using Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    productRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      productRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [products, sortOrder]);
+
+  // Sort products
   const sortedProducts = [...products].sort((a, b) => {
-    if (sortOrder === "low-to-high") {
-      return a.price - b.price;
-    } else if (sortOrder === "high-to-low") {
-      return b.price - a.price;
-    }
+    if (sortOrder === "low-to-high") return a.price - b.price;
+    if (sortOrder === "high-to-low") return b.price - a.price;
     return 0;
   });
 
@@ -69,7 +91,6 @@ function Home({ user, addToCart }) {
               <p><strong>Rating:</strong> {selectedProduct.rating}⭐</p>
               <p>{selectedProduct.description}</p>
 
-              {/* Rating Feature */}
               <div className="rating-section">
                 <p><strong>Your Rating:</strong></p>
                 <div className="stars">
@@ -92,10 +113,7 @@ function Home({ user, addToCart }) {
                 </div>
               </div>
 
-              <button
-                className="buy-button"
-                onClick={() => { addToCart(selectedProduct) }}
-              >
+              <button className="buy-button" onClick={() => addToCart(selectedProduct)}>
                 Add To Cart
               </button>
             </div>
@@ -111,15 +129,19 @@ function Home({ user, addToCart }) {
           {sortedProducts.length === 0 ? (
             <p>No products match your search.</p>
           ) : (
-            sortedProducts.map((product) => (
-              <div key={product.id} className="product-card">
+            sortedProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className="product-card"
+                ref={(el) => (productRefs.current[index] = el)}
+              >
                 <img
                   src={product.thumbnail}
                   alt={product.title}
                   className="product-image"
                   onClick={() => {
                     setSelectedProduct(product);
-                    setLocalRating(product.rating); // Set local rating when product is selected
+                    setLocalRating(product.rating);
                   }}
                 />
                 <div className="product-info">

@@ -2,7 +2,14 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-color: #f0f7f780;
-  padding: 0.5px;
+  padding: 0.4px;
+  background-image: url('assets/mntn.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.8); /* optional overlay effect */
+  background-blend-mode: lighten;
 }
 .loading-products{
   text-align: center;
@@ -63,19 +70,20 @@ nav img {
   color:black;
 }
 /* form styling*/
+
 .form-container {
   max-width: 400px;
   margin: 3rem auto;
   padding: 2rem;
-  background: linear-gradient(to right, #f4f4f5, #efe7f7);
+  background: linear-gradient(to right, #a0c2c2, #b190d1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border:1px solid black;
-}
+ 
+  }
 .form-h2{
   text-align:center;
 }
@@ -144,8 +152,16 @@ form button:hover {
   justify-content: space-around;
   height: 90%;
   transition: transform 0.3s ease, box-shadow 0.3s ease,background-color 0.6s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
+/* Scroll animation */
 
+.product-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 /* Hover effect */
 .product-card:hover {
   transform: translateX(-5px) scale(1.01);
@@ -844,7 +860,7 @@ form button:hover {
 /* Sort By Price Container */
 .sort-by-price {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -852,12 +868,15 @@ form button:hover {
 .sort-by-price select {
   padding: 10px;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  background-color: white;
+  background: linear-gradient(to right, #c444ff, #ff6b6b);
   cursor: pointer;
   outline: none;
   transition: border-color 0.3s ease;
+  width: 600px;
+  text-align: center;
+  font-size: large;
 }
 
 .sort-by-price select:focus {
