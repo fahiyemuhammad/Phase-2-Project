@@ -1,25 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import PromoBanner from "./PromoBanner";
-
+import SortByPrice from "./SortByPrice";
 
 function Home({ user, addToCart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [localRating, setLocalRating] = useState(null); // New state for rating
+  const [localRating, setLocalRating] = useState(null);
   const detailsRef = useRef(null);
+  const [sortOrder, setSortOrder] = useState("");
 
   // Load products (initial or after search)
   useEffect(() => {
     const url = searchTerm
-      ? `https://dummyjson.com/products/search?q=${searchTerm}` // the API I used when searching
-      : "https://dummyjson.com/products"; // when not searching
+      ? `https://dummyjson.com/products/search?q=${searchTerm}` 
+      : "https://dummyjson.com/products"; 
 
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products); // NOTE: access .products here
+        setProducts(data.products); 
         setLoading(false);
       });
   }, [searchTerm]);
@@ -30,6 +31,16 @@ function Home({ user, addToCart }) {
       window.scrollTo({ top: 500, behavior: "smooth" });
     }
   }, [selectedProduct]);
+
+  // Sort products based on sortOrder
+  const sortedProducts = [...products].sort((a, b) => {
+    if (sortOrder === "low-to-high") {
+      return a.price - b.price;
+    } else if (sortOrder === "high-to-low") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
 
   return (
     <div className="home">
@@ -42,6 +53,7 @@ function Home({ user, addToCart }) {
       />
 
       <PromoBanner />
+      <SortByPrice onSort={setSortOrder} />
 
       {/* Expanded Product Viewer */}
       {selectedProduct && (
@@ -74,13 +86,15 @@ function Home({ user, addToCart }) {
                       ★
                     </span>
                   ))}
-                  <p  style={{ marginTop: '5px' , color: "black"}}>Rated {localRating ?? selectedProduct.rating} out of 5</p>
+                  <p style={{ marginTop: '5px', color: "black" }}>
+                    Rated {localRating ?? selectedProduct.rating} out of 5
+                  </p>
                 </div>
               </div>
 
               <button
                 className="buy-button"
-                onClick={() => {addToCart(selectedProduct)}} // Ensure this is connected correctly
+                onClick={() => { addToCart(selectedProduct) }}
               >
                 Add To Cart
               </button>
@@ -94,10 +108,10 @@ function Home({ user, addToCart }) {
         <p className="loading-products">Loading products...</p>
       ) : (
         <div className="product-list">
-          {products.length === 0 ? (
+          {sortedProducts.length === 0 ? (
             <p>No products match your search.</p>
           ) : (
-            products.map((product) => (
+            sortedProducts.map((product) => (
               <div key={product.id} className="product-card">
                 <img
                   src={product.thumbnail}
@@ -113,7 +127,6 @@ function Home({ user, addToCart }) {
                   <p>$ {product.price}</p>
                 </div>
                 <div className="product-button">
-                  {/* Ensure onClick is set up correctly */}
                   <button onClick={() => addToCart(product)}>Add To Cart</button>
                 </div>
               </div>
