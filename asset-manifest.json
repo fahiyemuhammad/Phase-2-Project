@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Phase-2-Project/static/css/main.6ad28e04.css",
+    "main.js": "/Phase-2-Project/static/js/main.286e2423.js",
+    "static/media/mntn.jpeg": "/Phase-2-Project/static/media/mntn.d516d8a79b50b7203683.jpeg",
+    "index.html": "/Phase-2-Project/index.html",
+    "main.6ad28e04.css.map": "/Phase-2-Project/static/css/main.6ad28e04.css.map",
+    "main.286e2423.js.map": "/Phase-2-Project/static/js/main.286e2423.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ad28e04.css",
+    "static/js/main.286e2423.js"
+  ]
+}
