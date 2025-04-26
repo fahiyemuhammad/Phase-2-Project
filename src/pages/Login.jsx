@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import { Link } from "react-router-dom";
 
 function Login({ setUser }) {
   const [form, setForm] = useState({ email: "", password: "" });
-  const navigate = useNavigate();  // Hook for navigation
+  const navigate = useNavigate(); 
 
   function handleChange(e) {
     const { name, value } = e.target;

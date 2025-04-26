@@ -12,7 +12,7 @@ function Home({ user, addToCart }) {
   const [sortOrder, setSortOrder] = useState("");
   const productRefs = useRef([]); // For scroll animation
 
-  // Load products
+  //  for Loading products
   useEffect(() => {
     const url = searchTerm
       ? `https://dummyjson.com/products/search?q=${searchTerm}`
@@ -26,7 +26,7 @@ function Home({ user, addToCart }) {
       });
   }, [searchTerm]);
 
-  // Scroll to details if one is selected
+  // for scrolling to details if one is selected
   useEffect(() => {
     if (selectedProduct) {
       window.scrollTo({ top: 500, behavior: "smooth" });

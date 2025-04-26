@@ -44,7 +44,7 @@ function App() {
         quantity: 1,
       };
       toast.success("Item added to cart successfully!", {
-        position: "top-right",
+        position: "top-center",
       });
 
       const existingItem = cart.find((item) => item.id === validProduct.id);
