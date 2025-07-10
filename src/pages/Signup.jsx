@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup({ setUser }) {
   const [form, setForm] = useState({
@@ -20,7 +19,7 @@ function Signup({ setUser }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3001/users")
+    fetch("https://phase-2-project-1-519s.onrender.com/users")
       .then((res) => res.json())
       .then((users) => {
         const usernameExists = users.some(
@@ -42,8 +41,8 @@ function Signup({ setUser }) {
           return;
         }
 
-        //  After  both are unique, proceed with signup
-        fetch("http://localhost:3001/users", {
+        // Proceed with signup
+        fetch("https://phase-2-project-1-519s.onrender.com/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +58,12 @@ function Signup({ setUser }) {
             });
             navigate("/login");
           });
-      });
+      })
+      .catch(() =>
+        toast.error("Failed to connect to server.", {
+          position: "top-center",
+        })
+      );
   }
 
   return (
@@ -91,7 +95,9 @@ function Signup({ setUser }) {
           required
         />
         <button type="submit">Sign Up</button>
-        <p>Already have an account? <Link to="/login">Log In</Link></p>
+        <p>
+          Already have an account? <Link to="/login">Log In</Link>
+        </p>
       </form>
     </div>
   );
