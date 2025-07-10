@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Login({ setUser }) {
   const [form, setForm] = useState({ email: "", password: "" });
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -19,15 +19,14 @@ function Login({ setUser }) {
       .then((res) => res.json())
       .then((users) => {
         const matchedUser = users.find(
-          (user) =>
-            user.email === form.email && user.password === form.password
+          (user) => user.email === form.email && user.password === form.password
         );
         if (matchedUser) {
-          setUser(matchedUser);  // Save user to state
+          setUser(matchedUser); // Save user to state
           toast.success("Logged in successfully!", {
             position: "top-center",
           });
-          navigate("/");  // Redirect to Home page
+          navigate("/"); // Redirect to Home page
         } else {
           toast.error("Invalid email or password", {
             position: "top-center",
@@ -56,9 +55,11 @@ function Login({ setUser }) {
           onChange={handleChange}
           required
         />
-        
+
         <button type="submit">Login</button>
-        <p>Dont have an account? <Link to="/signup">SignUp</Link></p>
+        <p>
+          Dont have an account? <Link to="/signup">SignUp</Link>
+        </p>
       </form>
     </div>
   );

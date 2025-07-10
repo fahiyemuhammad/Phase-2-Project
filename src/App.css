@@ -81,8 +81,6 @@ nav img {
   height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
- 
   }
 .form-h2{
   text-align:center;
@@ -92,23 +90,29 @@ form input {
   display: block;
   width: 100%;
   padding: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
   border-radius: 5px;
   border: 1px solid #ccc;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+form p{
+  margin-top: 2.5rem;
 }
 form input:hover{
   transform: translate(-5px) scale(1.06);
 }
 
 form button {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   background-color: #1e1e2f;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: 50px;
 }
 
 form button:hover {
@@ -554,6 +558,7 @@ form button:hover {
 
 .checkout-form {
   margin-top: 2rem;
+  padding :30px;
 }
 
 .form-group {
@@ -594,15 +599,16 @@ form button:hover {
 }
 
 .place-order-button {
-  width: 100%;
+  width: 90%;
   padding: 1rem;
   background-color: #1e1e2f;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+  
 }
 
 .place-order-button:hover:not([disabled]) {
